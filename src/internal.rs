@@ -28,8 +28,3 @@ pub struct PlayerStats {
     pub fastest_game: u32,
     pub longest_game: u32,
 }
-
-#[derive(BorshSerialize, BorshDeserialize)]
-pub struct TopPlayers {
-    pub list: Vector<AccountId>,
-}

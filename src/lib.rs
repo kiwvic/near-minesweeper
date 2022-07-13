@@ -26,5 +26,5 @@ pub enum StorageKeys {
 pub struct Minesweeper {
     current_games: LookupMap<AccountId, GameInfo>,
     players_stats: LookupMap<AccountId, PlayerStats>,
-    top_players: LazyOption<TopPlayers>,
+    top_players: Vector<AccountId>,
 }
