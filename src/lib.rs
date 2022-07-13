@@ -24,7 +24,7 @@ pub enum StorageKeys {
 #[near_bindgen]
 #[derive(BorshDeserialize, BorshSerialize, PanicOnDefault)]
 pub struct Minesweeper {
-    current_games: LookupMap<AccountId, GameInfo>,
+    current_games: LookupMap<AccountId, Game>,
     players_stats: LookupMap<AccountId, PlayerStats>,
     top_players: Vector<AccountId>,
 }
