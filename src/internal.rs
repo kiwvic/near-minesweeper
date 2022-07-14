@@ -20,6 +20,12 @@ impl Field {
     }
 
     fn fill_matrices(field: &mut Vec<Vec<i8>>, incidence_matrix: &mut Base64VecU8) {
+        /* For incidence matrix
+            let index = y * FIELD_WIDTH as usize + x;
+            let byte_index = index / 8;
+            let bit_index = index & 7;
+        */
+
         let mut mines_coordinate = Field::fill_mines(field);
     }
 
@@ -29,11 +35,6 @@ impl Field {
         for _i in 0..AMOUNT_OF_MINES {
             let x = get_random_number(AMOUNT_OF_MINES) as usize;
             let y = get_random_number(AMOUNT_OF_MINES) as usize;
-
-            // For incidence matrix
-            let index = y * FIELD_WIDTH as usize + x;
-            let byte_index = index / 8;
-            let bit_index = index & 7;
 
             let cell = field[y][x];
             if cell != -1 {
