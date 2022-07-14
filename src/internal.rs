@@ -2,20 +2,38 @@ use crate::*;
 
 #[derive(BorshDeserialize, BorshSerialize)]
 pub struct Field {
-    pub field: Base64VecU8,
+    pub field: Vec<Vec<i8>>,
+    pub incidence_matrix: Base64VecU8,
 }
 
 impl Field {
     pub fn new() -> Self {
+        let mut field = vec![vec![0i8; FIELD_WIDTH as usize]; FIELD_HEIGHT as usize];
+        let mut incidence_matrix = Base64VecU8::from(vec![0u8; FIELD_LEN]);
+
+        Field::fill_matrices(&mut field, &mut incidence_matrix);
+
         Self {
-            field: Field::init_field(),
+            field: field,
+            incidence_matrix: incidence_matrix,
         }
     }
 
-    fn init_field() -> Base64VecU8 {
-        let mut field = Base64VecU8::from(vec![0u8; FIELD_LEN]);
+    fn fill_matrices(field: &mut Vec<Vec<i8>>, incidence_matrix: &mut Base64VecU8) {
+        for _i in 0..AMOUNT_OF_MINES {
+            let x: usize = get_random_number(AMOUNT_OF_MINES) as usize;
+            let y: usize = get_random_number(AMOUNT_OF_MINES) as usize;
 
-        return field;
+            // For incidence matrix
+            let index: usize = y * FIELD_WIDTH as usize + x;
+            let byte_index = index / 8;
+            let bit_index = index & 7;
+
+            let cell = field[y][x];
+            if cell != -1 {
+                field[y][x] = -1;
+            }
+        }
     }
 }
 
