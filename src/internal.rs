@@ -3,6 +3,7 @@ use crate::*;
 #[derive(BorshDeserialize, BorshSerialize)]
 pub struct Field {
     pub field: Vec<Vec<i8>>,
+    pub playing_field: Base64VecU8,
     pub incidence_matrix: Base64VecU8,
 }
 
@@ -15,6 +16,7 @@ impl Field {
 
         Self {
             field: field,
+            playing_field: Base64VecU8::from(vec![0u8; FIELD_LEN]),
             incidence_matrix: incidence_matrix,
         }
     }
@@ -26,7 +28,7 @@ impl Field {
             let bit_index = index & 7;
         */
 
-        let mut mines_coordinate = Field::fill_mines(field);
+        let mut mines_coordinates = Field::fill_mines(field);
     }
 
     fn fill_mines(field: &mut Vec<Vec<i8>>) -> HashSet<(usize, usize)> {
