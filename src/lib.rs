@@ -8,9 +8,11 @@ use near_sdk::{
 use std::collections::HashSet;
 
 mod internal;
+mod field;
 mod utils;
 
 use crate::utils::*;
+use crate::field::*;
 use crate::internal::*;
 
 const FIELD_WIDTH: u8 = 16;
