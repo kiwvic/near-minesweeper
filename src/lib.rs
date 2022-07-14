@@ -29,3 +29,19 @@ pub struct Minesweeper {
     players_stats: LookupMap<AccountId, PlayerStats>,
     top_players: Vector<AccountId>,
 }
+
+#[near_bindgen]
+impl Minesweeper {
+    #[init]
+    pub fn new() -> Self {
+        Self {
+            current_games: LookupMap::new(StorageKeys::CurrentGames),
+            players_stats: LookupMap::new(StorageKeys::PlayerStats),
+            top_players: Vector::new(StorageKeys::TopPlayers),
+        }
+    }
+
+    pub fn start_game() {
+        // TODO check if already in game
+    }
+}
