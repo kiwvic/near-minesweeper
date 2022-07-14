@@ -20,6 +20,8 @@ impl Field {
     }
 
     fn fill_matrices(field: &mut Vec<Vec<i8>>, incidence_matrix: &mut Base64VecU8) {
+        let mut mines_coordinates: HashSet<(usize, usize)> = HashSet::new();
+
         for _i in 0..AMOUNT_OF_MINES {
             let x: usize = get_random_number(AMOUNT_OF_MINES) as usize;
             let y: usize = get_random_number(AMOUNT_OF_MINES) as usize;
@@ -32,6 +34,8 @@ impl Field {
             let cell = field[y][x];
             if cell != -1 {
                 field[y][x] = -1;
+
+                mines_coordinates.insert((x, y));
             }
         }
     }
