@@ -10,9 +10,11 @@ use std::collections::HashSet;
 mod internal;
 mod field;
 mod utils;
+mod game;
 
 use crate::utils::*;
 use crate::field::*;
+use crate::game::*;
 use crate::internal::*;
 
 const FIELD_WIDTH: u8 = 16;
