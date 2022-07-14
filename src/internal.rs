@@ -8,10 +8,10 @@ pub struct Game {
 }
 
 impl Game {
-    pub fn new(turn_time: Timestamp) -> Self {
+    pub fn new() -> Self {
         Self {
             field: Field::new(),
-            first_turn_time: turn_time,
+            first_turn_time: env::block_timestamp(),
             last_turn_time: 0 as Timestamp
         }
     }
