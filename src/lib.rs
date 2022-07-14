@@ -13,6 +13,7 @@ use crate::internal::*;
 const FIELD_WIDTH: usize = 16;
 const FIELD_HEIGHT: usize = 16;
 const FIELD_LEN: usize = (FIELD_WIDTH / 8) * FIELD_HEIGHT;
+const AMOUNT_OF_MINES: usize = 16;
 
 #[derive(BorshStorageKey, BorshSerialize)]
 pub enum StorageKeys {
