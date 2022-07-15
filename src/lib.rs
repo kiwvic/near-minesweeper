@@ -51,10 +51,14 @@ impl Minesweeper {
     pub fn start_game(&mut self) {
         assert_eq!(
             self.current_games.contains_key(&env::current_account_id()), 
-            true,
+            false,
             "You are already in game!"
         );
 
         self.current_games.insert(&env::current_account_id(), &Game::new());
     }
+
+    // pub fn get_game_field(&self) -> Vec<Vec<i8>> {
+    //     return self.current_games.get(&env::current_account_id()).unwrap().field.field;
+    // }
 }
