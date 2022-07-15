@@ -22,7 +22,7 @@ impl Field {
     }
 
     fn fill_matrices(field: &mut Vec<Vec<i8>>, incidence_matrix: &mut Base64VecU8) {
-        let mut mines_coordinates = Field::fill_mines(field);
+        Field::fill_mines(field);
 
         Field::fill_with_values(field);
 
