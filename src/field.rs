@@ -51,20 +51,6 @@ impl Field {
                 hash = env::keccak256(&[hash[cnt]]);
             }
         }
-
-        /*
-        for _i in 0..AMOUNT_OF_MINES {
-            let x = (hash[cnt - 1] / AMOUNT_OF_MINES) as usize;
-            let y = (hash[cnt] / AMOUNT_OF_MINES) as usize;
-
-            let cell = field[y][x];
-            if cell != -1 {
-                field[y][x] = -1;
-            }
-
-            cnt += 2;
-        }
-        */
     }
 
     fn fill_with_values(field: &mut Vec<Vec<i8>>) {

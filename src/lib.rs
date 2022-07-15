@@ -5,7 +5,6 @@ use near_sdk::{
     env, near_bindgen, BorshStorageKey, 
     AccountId, Timestamp, PanicOnDefault
 };
-use std::collections::HashSet;
 
 mod internal;
 mod field;
