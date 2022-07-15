@@ -29,11 +29,30 @@ impl Field {
         Field::fill_incidence_matrix(field, incidence_matrix);
     }
 
-    fn fill_with_mines(field: &mut Vec<Vec<i8>>) -> HashSet<(usize, usize)> {
-        let mut mines_coordinates: HashSet<(usize, usize)> = HashSet::new();
-        let hash = hash_from_random_seed();
+    fn fill_with_mines(field: &mut Vec<Vec<i8>>) {
+        let mut hash = hash_from_random_seed();
         let mut cnt = 1;
+        let mut mines = 0;
 
+
+        while mines != AMOUNT_OF_MINES {
+            let x = (hash[cnt - 1] / AMOUNT_OF_MINES) as usize;
+            let y = (hash[cnt] / AMOUNT_OF_MINES) as usize;
+            let cell = field[y][x];
+
+            if cell != -1 {
+                field[y][x] = -1;
+                
+                mines += 1;
+                cnt += 2;
+            } 
+            else {
+                cnt = 1;
+                hash = env::keccak256(&[hash[cnt]]);
+            }
+        }
+
+        /*
         for _i in 0..AMOUNT_OF_MINES {
             let x = (hash[cnt - 1] / AMOUNT_OF_MINES) as usize;
             let y = (hash[cnt] / AMOUNT_OF_MINES) as usize;
@@ -41,14 +60,11 @@ impl Field {
             let cell = field[y][x];
             if cell != -1 {
                 field[y][x] = -1;
-
-                mines_coordinates.insert((x, y));
             }
 
             cnt += 2;
         }
-
-        return mines_coordinates;
+        */
     }
 
     fn fill_with_values(field: &mut Vec<Vec<i8>>) {
