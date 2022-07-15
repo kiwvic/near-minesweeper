@@ -15,9 +15,9 @@ impl Field {
         Field::fill_matrices(&mut field, &mut incidence_matrix);
 
         Self {
-            field: field,
+            field,
             playing_field: Base64VecU8::from(vec![0u8; FIELD_LEN]),
-            incidence_matrix: incidence_matrix,
+            incidence_matrix,
         }
     }
 
