@@ -1,7 +1,9 @@
 use crate::*;
 
-pub(crate) fn get_random_number(divider: u8) -> u8 {
-    *env::random_seed().get(0).unwrap() / divider as u8
+pub(crate) fn hash_from_random_seed() -> Vec<u8> {
+    let random_seed = [*env::random_seed().get(0).unwrap()];
+
+    env::keccak256(&random_seed)
 }
 
 pub(crate) fn set_bit(arr: &mut Base64VecU8, i: u8, j: u8) {

@@ -22,19 +22,21 @@ impl Field {
     }
 
     fn fill_matrices(field: &mut Vec<Vec<i8>>, incidence_matrix: &mut Base64VecU8) {
-        Field::fill_mines(field);
+        Field::fill_with_mines(field);
 
         Field::fill_with_values(field);
 
         Field::fill_incidence_matrix(field, incidence_matrix);
     }
 
-    fn fill_mines(field: &mut Vec<Vec<i8>>) -> HashSet<(usize, usize)> {
+    fn fill_with_mines(field: &mut Vec<Vec<i8>>) -> HashSet<(usize, usize)> {
         let mut mines_coordinates: HashSet<(usize, usize)> = HashSet::new();
+        let hash = hash_from_random_seed();
+        let mut cnt = 1;
 
         for _i in 0..AMOUNT_OF_MINES {
-            let x = get_random_number(AMOUNT_OF_MINES) as usize;
-            let y = get_random_number(AMOUNT_OF_MINES) as usize;
+            let x = (hash[cnt - 1] / AMOUNT_OF_MINES) as usize;
+            let y = (hash[cnt] / AMOUNT_OF_MINES) as usize;
 
             let cell = field[y][x];
             if cell != -1 {
@@ -42,6 +44,8 @@ impl Field {
 
                 mines_coordinates.insert((x, y));
             }
+
+            cnt += 2;
         }
 
         return mines_coordinates;

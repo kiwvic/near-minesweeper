@@ -41,6 +41,11 @@ pub struct Minesweeper {
 impl Minesweeper {
     #[init]
     pub fn new() -> Self {
+        assert!(
+            AMOUNT_OF_MINES <= 16,
+            "mines > 16"
+        );
+
         Self {
             current_games: LookupMap::new(StorageKeys::CurrentGames),
             players_stats: LookupMap::new(StorageKeys::PlayerStats),
@@ -58,7 +63,7 @@ impl Minesweeper {
         self.current_games.insert(&env::current_account_id(), &Game::new());
     }
 
-    // pub fn get_game_field(&self) -> Vec<Vec<i8>> {
-    //     return self.current_games.get(&env::current_account_id()).unwrap().field.field;
-    // }
+    pub fn get_game_field(&self) -> Vec<Vec<i8>> {
+        return self.current_games.get(&env::current_account_id()).unwrap().field.field;
+    }
 }
