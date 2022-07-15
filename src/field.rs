@@ -22,12 +22,6 @@ impl Field {
     }
 
     fn fill_matrices(field: &mut Vec<Vec<i8>>, incidence_matrix: &mut Base64VecU8) {
-        /* For incidence matrix
-            let index = y * FIELD_WIDTH as usize + x;
-            let byte_index = index / 8;
-            let bit_index = index & 7;
-        */
-
         let mut mines_coordinates = Field::fill_mines(field);
 
         Field::fill_with_values(field);
@@ -71,8 +65,8 @@ impl Field {
                 let x: i8 = k + r;
                 let y: i8 = l + c;
 
-                if x < 0 || y < 0 || x >= FIELD_WIDTH as i8 || y >= FIELD_HEIGHT as i8 {
-                    continue;
+                if Field::indices_are_incorrect(x, y) {
+                    continue
                 }
 
                 if field[x as usize][y as usize] < 0 {
@@ -84,7 +78,41 @@ impl Field {
         return mines_around;
     }
 
-    fn fill_incidence_matrix(field: &Vec<Vec<i8>>, incidence_matrix: &mut Base64VecU8) {
-        // ...
+    fn fill_incidence_matrix(
+        field: &Vec<Vec<i8>>, 
+        incidence_matrix: &mut Base64VecU8,
+    ) {
+        for i in 0..FIELD_HEIGHT as i8 {
+            for j in 0..FIELD_WIDTH as i8 {
+                if field[i as usize][j as usize] == 0 {
+                    Field::connect_empty_cells(field, incidence_matrix, i, j);
+                }
+            }
+        }
+    }
+
+    fn connect_empty_cells(
+        field: &Vec<Vec<i8>>, 
+        incidence_matrix: &mut Base64VecU8,
+        r: i8, c: i8
+    ) {
+        for k in -1..2 {
+            for l in -1..2 {
+                let x: i8 = k + r;
+                let y: i8 = l + c;
+
+                if Field::indices_are_incorrect(x, y) {
+                    continue
+                }
+                
+                if field[x as usize][y as usize] == 0 {
+                    // TODO
+                }
+            } 
+        }
+    }
+
+    fn indices_are_incorrect(x: i8, y: i8) -> bool {
+        return x < 0 || y < 0 || x >= FIELD_WIDTH as i8 || y >= FIELD_HEIGHT as i8;
     }
 }
